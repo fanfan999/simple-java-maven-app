@@ -10,6 +10,7 @@ pipeline {
             steps {
                 echo 'This is a minimal pipeline'
                 sh 'mvn --version'
+                sh 'java -version'
             }
         }
         stage('test') {
