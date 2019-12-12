@@ -1,5 +1,9 @@
 pipeline {
-    agent any
+    agent {
+        node {
+            label 'master-node'
+        }
+    }
     
     tools {
         maven 'Maven-3.6.3'
