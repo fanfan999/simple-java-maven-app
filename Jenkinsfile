@@ -11,9 +11,11 @@ pipeline {
     
     stages {
         stage('Info') {
-            echo 'This stage is used for showing some basic information'
-            sh 'mvn --version'
-            sh 'java -version'
+            steps {
+                echo 'This stage is used for showing some basic information'
+                sh 'mvn --version'
+                sh 'java -version'
+            }
         }
         stage('Build') { 
             steps {
