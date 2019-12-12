@@ -1,10 +1,10 @@
 pipeline {
-    agent {
-        docker {
-            image 'maven:latest'
-            args '-v /root/.m2:/root/.m2'
-        }
+    agent any
+    
+    tools {
+        maven 'Maven-3.6.3'
     }
+    
     stages {
         stage('Build') { 
             steps {
@@ -13,15 +13,17 @@ pipeline {
                 sh 'java -version'
             }
         }
-        stage('test') {
+        
+        stage('Test') {
             steps {
-                echo 'test'
+                sh 'mvn test'
             }
         }
-        stage('deliver') {
-            steps {
-                sh './jenkins/scripts/deliver.sh'
-            }
+    }
+    
+    post {
+        always {
+            echo 'This will always be shown'
         }
     }
 }
