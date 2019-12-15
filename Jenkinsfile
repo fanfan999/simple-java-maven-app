@@ -11,6 +11,7 @@ pipeline {
 	stages {
 
 		stage('Build') {
+			echo 'Starting building'
 			deleteDir()
 			sh 'mvn -B -DskipTests clean package'
 		}
