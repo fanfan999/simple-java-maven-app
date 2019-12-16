@@ -16,6 +16,7 @@ pipeline {
 		
 		stage('Info') {
 			steps {
+				sh 'branch'
 				sh 'printenv'
 			}
 			
