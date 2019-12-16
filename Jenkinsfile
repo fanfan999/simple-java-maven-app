@@ -91,7 +91,7 @@ pipeline {
 					template = readFile encoding: 'UTF-8', file: "${failt_email_template}"
 					emailext(subject: '任务执行成功',
 							 attachLog: true,
-							 recipientProviders: [requestor()], 
+							 //recipientProviders: [requestor()], 
 							 to: "${USERMAIL}",
 							 body: """${template}""")
 					}
@@ -107,7 +107,7 @@ pipeline {
 					template = readFile encoding: 'UTF-8', file: "${failt_email_template}"
 					emailext(subject: '任务执行失败',
 							 attachLog: true,
-							 recipientProviders: [requestor()], 
+							 //recipientProviders: [requestor()], 
 							 to: "${USERMAIL}",
 							 body: """${template}""")
 					}
