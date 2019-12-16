@@ -2,7 +2,7 @@ pipeline {
 	agent any
 	
 	options {
-		//skipStagesAfterUnstable()
+		skipStagesAfterUnstable()
 		
 		timeout(time:1, unit:'HOURS')
 	}
@@ -14,7 +14,7 @@ pipeline {
 			steps {
 				echo 'Starting building'
 				deleteDir()
-				sh 'mvn -B -DskipTests clean package'
+				sh 'cd simple-java-maven-app && mvn -B -DskipTests clean package'
 			}
 		}
 		
