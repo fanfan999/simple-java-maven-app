@@ -33,10 +33,6 @@ pipeline {
 			}
 			
 			post {
-				input {
-					message 'want download the file?'
-					ok 'sure'
-				}
 				always {
 					junit 'target/surefire-reports/*.xml'
 					archiveArtifacts 'target/*.jar'
