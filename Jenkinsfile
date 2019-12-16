@@ -14,7 +14,13 @@ pipeline {
 	}
 	
 	stages {
-
+		
+		stage('Info') {
+			steps {
+				sh 'printenv'
+			}
+			
+		}
 		stage('Build') {
 			steps {
 				echo 'Starting building'
