@@ -9,8 +9,7 @@ pipeline {
 	
 	environment {
 		def USERMAIL = "1058180192@qq.com;lei.fan@capgemini.com"
-		//MAVEN_OPTS = "-Xmx512M"
-		//-XX:MaxPermSize=512M
+		MAVEN_OPTS="-Xmx256m"
 	}
 	
 	stages {
@@ -24,8 +23,11 @@ pipeline {
 		stage('Build') {
 			steps {
 				echo 'Starting building'
-				//deleteDir()
-				sh 'mvn -B -DskipTests clean package'
+				
+				//withEnv(['MAVEN_OPTS="-Xmx256m"']) {
+				    	//deleteDir()
+					sh 'mvn -B -DskipTests clean package'
+				//}
 			}
 		}
 		
