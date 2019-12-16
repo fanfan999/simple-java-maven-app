@@ -10,7 +10,6 @@ pipeline {
 	environment {
 		def USERMAIL = "1058180192@qq.com;lei.fan@capgemini.com"
 		MAVEN_OPTS="-Xmx125m"
-		//MAVEN_OPTS=-Xmx512M -XX:MaxPermSize=512M
 	}
 	
 	stages {
@@ -24,7 +23,6 @@ pipeline {
 		stage('Build') {
 			steps {
 				echo 'Starting building'
-				sh 'pwd'
 				sh 'mvn -B -DskipTests clean package'
 			}
 		}
@@ -32,14 +30,16 @@ pipeline {
 		stage ('Test') {
 			steps {
 				sh 'mvn test'
-				sh 'pwd'
-				echo 'test'
 			}
 			
 			post {
+				input {
+					message 'want download the file?'
+					ok 'sure'
+				}
 				always {
-					echo 'The result has sent to you mailbox'
-					//junit 'target/surefire-reports/*.xml'
+					junit 'target/surefire-reports/*.xml'
+					archiveArtifacts 'target/*.jar'
 				}
 			}
 			
@@ -47,7 +47,6 @@ pipeline {
 		
 		stage('Deploy for development') {
 			when {
-				//beforeInput true
 				branch 'origin/dev'
 			}
 			
@@ -64,7 +63,6 @@ pipeline {
 		
 		stage('Deploy for production') {
 			when {
-				//beforeInput true
 				branch 'origin/master'
 			}
 			
@@ -81,29 +79,40 @@ pipeline {
 	
 	post {
 		always {
-			//input {
-				//message "Do you want to download the file?"
-				//ok "yes"
-			//}
-			
-			archiveArtifacts 'target/*.jar'
+			echo "The result of this pipeline has sent to your mailbox"
 		}
 		
 		success {
-		    emailext (
-			subject: "'${env.JOB_NAME} [${env.BUILD_NUMBER}]' 更新正常",
-			body: """
-			详情：
-			SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'
-			状态：${env.JOB_NAME} jenkins 更新运行正常 
-			URL ：${env.BUILD_URL}
-			项目名称 ：${env.JOB_NAME} 
-			项目更新进度：${env.BUILD_NUMBER}
-			""",
-			to: "${USERMAIL}",  
-			recipientProviders: [[$class: 'DevelopersRecipientProvider']]
-			)
-                }
+			script{
+				configFileProvider([configFile(fileId: 'caas-email-template-20191216',
+											   targetLocation: 'email.html', 
+											   variable: 'failt_email_template')]) {
+					template = readFile encoding: 'UTF-8', file: "${failt_email_template}"
+					emailext(subject: '任务执行成功',
+							 attachLog: true,
+							 recipientProviders: [requestor()], 
+							 to: "${USERMAIL}",
+							 body: """${template}""")
+					}
+				}
+
+		}
+		
+		failure {
+			script{
+				configFileProvider([configFile(fileId: 'caas-email-template-20191216',
+											   targetLocation: 'email.html', 
+											   variable: 'failt_email_template')]) {
+					template = readFile encoding: 'UTF-8', file: "${failt_email_template}"
+					emailext(subject: '任务执行失败',
+							 attachLog: true,
+							 recipientProviders: [requestor()], 
+							 to: "${USERMAIL}",
+							 body: """${template}""")
+					}
+				}
+
+		}
 		
 	}
 }
