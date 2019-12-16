@@ -9,7 +9,7 @@ pipeline {
 	
 	environment {
 		def USERMAIL = "1058180192@qq.com;lei.fan@capgemini.com"
-		MAVEN_OPTS = "-Xmx512M"
+		//MAVEN_OPTS = "-Xmx512M"
 		//-XX:MaxPermSize=512M
 	}
 	
@@ -31,13 +31,14 @@ pipeline {
 		
 		stage ('Test') {
 			steps {
-				sh 'mvn test'
+				//sh 'mvn test'
+				echo 'test'
 			}
 			
 			post {
 				always {
 					echo 'The result has sent to you mailbox'
-					junit 'target/surefire-reports/*.xml'
+					//junit 'target/surefire-reports/*.xml'
 				}
 			}
 			
