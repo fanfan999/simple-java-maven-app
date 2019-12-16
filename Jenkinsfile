@@ -9,7 +9,7 @@ pipeline {
 	
 	environment {
 		def USERMAIL = "1058180192@qq.com;lei.fan@capgemini.com"
-		MAVEN_OPTS="-Xmx256m"
+		MAVEN_OPTS="-Xmx125m"
 		//MAVEN_OPTS=-Xmx512M -XX:MaxPermSize=512M
 	}
 	
@@ -35,6 +35,7 @@ pipeline {
 		stage ('Test') {
 			steps {
 				//sh 'mvn test'
+				sh 'pwd'
 				echo 'test'
 			}
 			
