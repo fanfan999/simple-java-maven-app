@@ -29,12 +29,13 @@ pipeline {
 		
 		stage ('Test') {
 			steps {
-				sh 'mvn test'
+				echo 'This will be done with sonarqube'
+				//sh 'mvn test'
 			}
 			
 			post {
 				always {
-					junit 'target/surefire-reports/*.xml'
+					//junit 'target/surefire-reports/*.xml'
 					archiveArtifacts 'target/*.jar'
 				}
 			}
