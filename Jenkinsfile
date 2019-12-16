@@ -16,7 +16,7 @@ pipeline {
 		
 		stage('Info') {
 			steps {
-				sh 'branch'
+				sh 'git branch -vv'
 				sh 'printenv'
 			}
 			
