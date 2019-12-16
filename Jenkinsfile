@@ -13,8 +13,8 @@ pipeline {
 		stage('Build') {
 			steps {
 				echo 'Starting building'
-				deleteDir()
-				sh 'sudo cd simple-java-maven-app && mvn -B -DskipTests clean package'
+				//deleteDir()
+				sh 'mvn -B -DskipTests clean package'
 			}
 		}
 		
