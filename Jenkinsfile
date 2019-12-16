@@ -45,7 +45,7 @@ pipeline {
 		
 		stage('Deploy for development') {
 			when {
-				branch 'origin/dev'
+				branch 'dev'
 			}
 			
 			input {
@@ -61,7 +61,7 @@ pipeline {
 		
 		stage('Deploy for production') {
 			when {
-				branch 'origin/master'
+				branch 'master'
 			}
 			
 			input {
