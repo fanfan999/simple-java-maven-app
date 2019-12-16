@@ -70,10 +70,10 @@ pipeline {
 	
 	post {
 		always {
-			input {
-				message "Do you want to download the file?"
-				ok "yes"
-			}
+			//input {
+				//message "Do you want to download the file?"
+				//ok "yes"
+			//}
 			
 			archiveArtifacts 'target/*.jar'
 		}
