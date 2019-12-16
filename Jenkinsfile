@@ -24,17 +24,14 @@ pipeline {
 		stage('Build') {
 			steps {
 				echo 'Starting building'
-				
-				//withEnv(['MAVEN_OPTS="-Xmx256m"']) {
-				    	//deleteDir()
-					sh 'mvn -B -DskipTests clean package'
-				//}
+				sh 'pwd'
+				sh 'mvn -B -DskipTests clean package'
 			}
 		}
 		
 		stage ('Test') {
 			steps {
-				//sh 'mvn test'
+				sh 'mvn test'
 				sh 'pwd'
 				echo 'test'
 			}
@@ -51,7 +48,7 @@ pipeline {
 		stage('Deploy for development') {
 			when {
 				//beforeInput true
-				branch 'dev'
+				branch 'origin/dev'
 			}
 			
 			input {
@@ -68,7 +65,7 @@ pipeline {
 		stage('Deploy for production') {
 			when {
 				//beforeInput true
-				branch 'master'
+				branch 'origin/master'
 			}
 			
 			input {
