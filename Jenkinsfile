@@ -46,8 +46,7 @@ pipeline {
 		
 		stage('Deploy for development') {
 			when {
-				beforeInput true
-				
+				//beforeInput true
 				branch 'dev'
 			}
 			
@@ -64,8 +63,7 @@ pipeline {
 		
 		stage('Deploy for production') {
 			when {
-				beforeInput true
-				
+				//beforeInput true
 				branch 'master'
 			}
 			
