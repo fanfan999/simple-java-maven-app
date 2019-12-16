@@ -17,6 +17,8 @@ pipeline {
 		stage('Info') {
 			steps {
 				sh 'git branch'
+				sh 'git config'
+				sh 'git symbolic-ref --short -q HEAD'.execute().text.trim()'
 				sh 'printenv'
 			}
 			
