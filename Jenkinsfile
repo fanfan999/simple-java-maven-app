@@ -14,7 +14,7 @@ pipeline {
 			steps {
 				echo 'Starting building'
 				deleteDir()
-				sh 'cd simple-java-maven-app && mvn -B -DskipTests clean package'
+				sh 'sudo cd simple-java-maven-app && mvn -B -DskipTests clean package'
 			}
 		}
 		
