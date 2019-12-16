@@ -16,7 +16,7 @@ pipeline {
 		
 		stage('Info') {
 			steps {
-				sh 'git branch -vv'
+				sh 'git branch'
 				sh 'printenv'
 			}
 			
@@ -31,12 +31,12 @@ pipeline {
 		stage ('Test') {
 			steps {
 				echo 'This will be done with sonarqube'
-				//sh 'mvn test'
+				sh 'mvn test'
 			}
 			
 			post {
 				always {
-					//junit 'target/surefire-reports/*.xml'
+					junit 'target/surefire-reports/*.xml'
 					archiveArtifacts 'target/*.jar'
 				}
 			}
