@@ -33,12 +33,13 @@ pipeline {
 		stage ('Test') {
 			steps {
 				echo 'This will be done with sonarqube'
-				sh 'mvn test'
+				//sh 'mvn test'
+				mvn sonar:sonar -Dsonar.projectKey=caas -Dsonar.host.url=https://sonarqube.caas.dev -Dsonar.login=42547eeae0b6e28256a0a1f71418cc0d8ba0e617
 			}
 			
 			post {
 				always {
-					junit 'target/surefire-reports/*.xml'
+					//junit 'target/surefire-reports/*.xml'
 					archiveArtifacts 'target/*.jar'
 				}
 			}
