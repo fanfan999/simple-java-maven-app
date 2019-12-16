@@ -25,7 +25,7 @@ pipeline {
 		stage('Build') {
 			steps {
 				echo 'Starting building'
-				sh 'mvn -B -DskipTests clean package'
+				//sh 'mvn -B -DskipTests clean package'
 			}
 		}
 		
@@ -38,8 +38,9 @@ pipeline {
 			
 			post {
 				always {
+					echo 'test post'
 					//junit 'target/surefire-reports/*.xml'
-					archiveArtifacts 'target/*.jar'
+					//archiveArtifacts 'target/*.jar'
 				}
 			}
 			
