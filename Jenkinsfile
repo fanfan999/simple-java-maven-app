@@ -17,8 +17,8 @@ pipeline {
 		stage('Info') {
 			steps {
 				sh 'git branch'
-				sh 'git config'
-				sh 'printenv'
+				//sh 'git config'
+				//sh 'printenv'
 			}
 			
 		}
