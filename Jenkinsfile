@@ -31,7 +31,7 @@ pipeline {
 		
 		stage ('Test') {
 			steps {
-				mvn sonar:sonar -Dsonar.projectKey=caas -Dsonar.login=18525d48f80feb61692f63d0e378682e4a34c915 -Dsonar.host.url=http://sonar-sonarqube.devops:9000
+				sh mvn sonar:sonar -Dsonar.projectKey=caas -Dsonar.host.url=http://sonar-sonarqube.devops:9000 -Dsonar.login=18525d48f80feb61692f63d0e378682e4a34c915
 			}
 			
 			post {
