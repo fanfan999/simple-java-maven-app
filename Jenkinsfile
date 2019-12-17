@@ -13,7 +13,7 @@ pipeline {
 	}
 	
 	parameters {
-         choice(name: 'CHOICE', choices: ['true', 'false'], defaultValue: true, description: 'Pick something')
+         choice(name: 'CHOICE', choices: ['true', 'false'], description: 'Pick something')
     	}
 	
 	stages {
