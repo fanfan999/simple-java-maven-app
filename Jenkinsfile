@@ -17,8 +17,8 @@ pipeline {
 		stage('Info') {
 			steps {
 				sh 'git branch'
-				//sh 'git config'
-				//sh 'printenv'
+                echo 'BRANCH_NAME'
+				sh 'printenv'
 			}
 			
 		}
@@ -31,16 +31,13 @@ pipeline {
 		
 		stage ('Test') {
 			steps {
-				echo 'This will be done with sonarqube'
-				//sh 'mvn test'
-				sh 'mvn sonar:sonar -Dsonar.projectKey=caas -Dsonar.host.url=http://sonar-sonarqube.devops:9000 -Dsonar.login=18525d48f80feb61692f63d0e378682e4a34c915'
+				echo 'This will be done through sonarqube'
+				mvn sonar:sonar -Dsonar.projectKey=caas -Dsonar.host.url=https://sonar-sonarqube.devops:9000 -Dsonar.login=18525d48f80feb61692f63d0e378682e4a34c915
 			}
 			
 			post {
 				always {
-					echo 'test post'
-					//junit 'target/surefire-reports/*.xml'
-					//archiveArtifacts 'target/*.jar'
+					archiveArtifacts 'target/*.jar'
 				}
 			}
 			
@@ -52,7 +49,7 @@ pipeline {
 			}
 			
 			input {
-				message 'Being sure to continue?'
+				message 'Deploy for deployment?'
 				ok 'yes'
 			}
 			
@@ -68,12 +65,12 @@ pipeline {
 			}
 			
 			input {
-				message 'Being sure to continue?'
+				message 'Deploy for production？'
 				ok 'yes'
 			}
 			 
 			steps {
-				echo 'This process is for deployment'
+				echo 'This process is for production'
 			}
 		}
 	}
@@ -81,6 +78,8 @@ pipeline {
 	post {
 		always {
 			echo "The result of this pipeline has sent to your mailbox"
+            //删除当前目录
+			deleteDir()
 		}
 		
 		success {
@@ -91,7 +90,7 @@ pipeline {
 					template = readFile encoding: 'UTF-8', file: "${failt_email_template}"
 					emailext(subject: '任务执行成功',
 							 attachLog: true,
-							 //recipientProviders: [requestor()], 
+							 recipientProviders: [requestor()], 
 							 to: "${USERMAIL}",
 							 body: """${template}""")
 					}
@@ -107,7 +106,7 @@ pipeline {
 					template = readFile encoding: 'UTF-8', file: "${failt_email_template}"
 					emailext(subject: '任务执行失败',
 							 attachLog: true,
-							 //recipientProviders: [requestor()], 
+							 recipientProviders: [requestor()], 
 							 to: "${USERMAIL}",
 							 body: """${template}""")
 					}
