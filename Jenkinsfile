@@ -13,7 +13,7 @@ pipeline {
 	}
 	
 	parameters {
-         choice(name: 'CHOICE', choices: ['true', 'false'], description: 'Pick something')
+		choice(name: 'CHOICE', choices: ['true', 'false'], description: 'Pick something')
     	}
 	
 	stages {
@@ -21,7 +21,7 @@ pipeline {
 		stage('Info') {
 			steps {
 				sh 'git branch'
-                echo 'BRANCH_NAME'
+                		echo BRANCH_NAME
 				sh 'printenv'
 			}
 			
