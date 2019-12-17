@@ -33,7 +33,7 @@ pipeline {
 			steps {
 				echo 'This will be done with sonarqube'
 				//sh 'mvn test'
-				sh 'mvn sonar:sonar -Dsonar.projectKey=caas -Dsonar.host.url=http://sonar-sonarqube.devops:9000 -Dsonar.login=42547eeae0b6e28256a0a1f71418cc0d8ba0e617'
+				sh 'mvn sonar:sonar -Dsonar.projectKey=caas -Dsonar.host.url=http://sonar-sonarqube.devops:9000 -Dsonar.login=18525d48f80feb61692f63d0e378682e4a34c915'
 			}
 			
 			post {
