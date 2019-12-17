@@ -12,6 +12,10 @@ pipeline {
 		MAVEN_OPTS="-Xmx125m"
 	}
 	
+	parameters {
+         choice(name: 'CHOICE', choices: ['true', 'false'], defaultValue: true, description: 'Pick something')
+    	}
+	
 	stages {
 		
 		stage('Info') {
@@ -45,12 +49,9 @@ pipeline {
 		
 		stage('Deploy for development') {
 			when {
-				branch 'dev'
-			}
-			
-			input {
-				message 'Deploy for deployment?'
-				ok 'yes'
+				expression {
+				    BRANCH_NAME == ~ /(dev)/
+				}
 			}
 			
 			steps {
@@ -62,11 +63,6 @@ pipeline {
 		stage('Deploy for production') {
 			when {
 				branch 'master'
-			}
-			
-			input {
-				message 'Deploy for production？'
-				ok 'yes'
 			}
 			 
 			steps {
